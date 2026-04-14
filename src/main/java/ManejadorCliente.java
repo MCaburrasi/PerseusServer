@@ -1,0 +1,49 @@
+import java.io.*;
+import java.net.*;
+
+public class ManejadorCliente implements Runnable {
+    private Socket socket;
+    private PrintWriter salida;
+    private BufferedReader entrada;
+
+    public ManejadorCliente(Socket socket) {
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        try {
+            this.salida = new PrintWriter(socket.getOutputStream(), true);
+            this.entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            // El hilo espera aqui hasta que empieza la partida
+
+            String mensajeCliente;
+            while ((mensajeCliente = entrada.readLine()) != null) {
+                String respuestaServidor = ""; //Procesar entrada
+                
+                enviarMensajeDirecto(respuestaServidor);
+            }
+        } catch (IOException e) {
+            System.err.println("Fallo en la conexión");
+        } finally {
+            cerrarConexion();
+        }
+    }
+
+    // Lo uso tb para hacer difusion en el metodo broadcast de Partida
+    public void enviarMensajeDirecto(String mensaje) {
+        if (salida != null) {
+            salida.println(mensaje);
+        }
+    }
+
+    private void cerrarConexion() {
+        try {
+            if (socket != null) socket.close();
+            System.out.println("Socket de jugador cerrado");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
