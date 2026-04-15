@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 @Table(name = "User")
 public class User {
     @Id
+
     private int id;
 
     private String name;
@@ -15,16 +16,16 @@ public class User {
     private String mail;
     private String pfp;
     private String banner;
-    private String text;
+    private String bio;
 
-    public User(int id, String name, String password, String mail, String pfp, String banner, String text) {
-        this.id = id;
+    public User(String name, String password, String mail) {
         this.name = name;
         this.password = password;
         this.mail = mail;
-        this.pfp = pfp;
-        this.banner = banner;
-        this.text = text;
+    }
+
+    public User() {
+
     }
 
     public int getId() {
@@ -51,7 +52,7 @@ public class User {
         return banner;
     }
 
-    public String getText() {
-        return text;
+    public String getBio() {
+        return bio;
     }
 }

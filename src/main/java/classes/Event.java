@@ -1,13 +1,15 @@
 package classes;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class Event {
-    private int id;
+    @Id
+    private long id;
     private String title;
     private String description;
     private LocalDateTime startDate;
@@ -15,10 +17,9 @@ public class Event {
     private String place;
     private String image;
     @ManyToOne
-    private int idAuthor;
+    private User idAuthor;
 
-    public Event(int id, String title, String description, LocalDateTime startDate, LocalDateTime endTime, String place, String image, int idAuthor) {
-        this.id = id;
+    public Event(String title, String description, LocalDateTime startDate, LocalDateTime endTime, String place, String image, User idAuthor) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
@@ -28,7 +29,9 @@ public class Event {
         this.idAuthor = idAuthor;
     }
 
-    public int getId() {
+    public Event() {}
+
+    public long getId() {
         return id;
     }
 
@@ -56,7 +59,7 @@ public class Event {
         return image;
     }
 
-    public int getIdAuthor() {
+    public User getIdAuthor() {
         return idAuthor;
     }
 }

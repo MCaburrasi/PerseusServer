@@ -16,8 +16,6 @@ public class ManejadorCliente implements Runnable {
             this.salida = new PrintWriter(socket.getOutputStream(), true);
             this.entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            // El hilo espera aqui hasta que empieza la partida
-
             String mensajeCliente;
             while ((mensajeCliente = entrada.readLine()) != null) {
                 String respuestaServidor = ""; //Procesar entrada
@@ -31,7 +29,6 @@ public class ManejadorCliente implements Runnable {
         }
     }
 
-    // Lo uso tb para hacer difusion en el metodo broadcast de Partida
     public void enviarMensajeDirecto(String mensaje) {
         if (salida != null) {
             salida.println(mensaje);

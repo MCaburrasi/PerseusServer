@@ -28,6 +28,7 @@ create table Event(
 create table Post(
     id int primary key,
     textContent text,
+    image varchar(150),
     idAuthor int,
     idEvent int,
 
@@ -89,4 +90,6 @@ create table Favorite(
     constraint primary key (idUser, occurrenceName, occurrenceDate),
     constraint foreign key (idUser) references User(id),
     constraint foreign key (occurrenceName, occurrenceDate) references occurrence(name, date)
-)
+);
+
+drop database PerseusDatabase;

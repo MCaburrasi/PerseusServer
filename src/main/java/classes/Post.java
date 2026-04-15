@@ -1,28 +1,35 @@
 package classes;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Post {
-    private int id;
+    @Id
+    private long id;
 
     private String textContent;
 
-    @ManyToOne
-    private int idAuthor;
+    private String image;
 
     @ManyToOne
-    private int idEvent;
+    private User idAuthor;
 
-    public Post(int id, String textContent, int idAuthor, int idEvent) {
-        this.id = id;
+    @ManyToOne
+    private Event idEvent;
+
+    public Post(String textContent, User idAuthor, Event idEvent) {
         this.textContent = textContent;
         this.idAuthor = idAuthor;
         this.idEvent = idEvent;
     }
 
-    public int getId() {
+    public Post() {
+
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -30,11 +37,11 @@ public class Post {
         return textContent;
     }
 
-    public int getIdAuthor() {
+    public User getIdAuthor() {
         return idAuthor;
     }
 
-    public int getIdEvent() {
+    public Event getIdEvent() {
         return idEvent;
     }
 }

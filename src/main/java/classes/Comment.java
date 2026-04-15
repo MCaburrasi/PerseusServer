@@ -1,31 +1,37 @@
 package classes;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment {
     @ManyToOne
-    private int idUser;
+    @Id //Figure it out
+    private User idUser;
     @ManyToOne
-    private int idPost;
+    private Post idPost;
 
     private String content;
 
     private int likes;
 
-    public Comment(int idUser, int idPost, String content, int likes) {
+    public Comment(User idUser, Post idPost, String content) {
         this.idUser = idUser;
         this.idPost = idPost;
         this.content = content;
-        this.likes = likes;
+        this.likes = 0;
     }
 
-    public int getIdUser() {
+    public Comment() {
+
+    }
+
+    public User getIdUser() {
         return idUser;
     }
 
-    public int getIdPost() {
+    public Post getIdPost() {
         return idPost;
     }
 
