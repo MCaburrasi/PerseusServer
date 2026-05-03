@@ -25,11 +25,11 @@ public class Opinion {
 
     }
 
-    public int getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public int getIdArticle() {
+    public Article getIdArticle() {
         return idArticle;
     }
 

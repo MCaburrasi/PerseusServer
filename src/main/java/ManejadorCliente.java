@@ -19,7 +19,7 @@ public class ManejadorCliente implements Runnable {
             String mensajeCliente;
             while ((mensajeCliente = entrada.readLine()) != null) {
                 String respuestaServidor = ""; //Procesar entrada
-                
+                System.out.println(mensajeCliente);
                 enviarMensajeDirecto(respuestaServidor);
             }
         } catch (IOException e) {
