@@ -12,7 +12,7 @@ public class Server {
             while (true) {
                 Socket socketCliente = socketServidor.accept();
 
-                ManejadorCliente manejador = new ManejadorCliente(socketCliente);
+                ManejadorCliente manejador = new ManejadorCliente(socketCliente, protocol);
                 Thread hilo = new Thread(manejador);
                 hilo.start();
                 System.out.println("Cliente iniciado");

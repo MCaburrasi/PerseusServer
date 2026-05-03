@@ -26,7 +26,7 @@ public class Protocol {
 
                 u = new Event(clientSays[2], clientSays[3], startDate, endDate, clientSays[6], clientSays[7], sender);
             } else if (clientSays[1].equalsIgnoreCase("Post")){
-                u = new Post(clientSays[2], sender, null); //clientSays[4] //Parsea clienteSays4 al evento con ese id con una busqueda hql
+                u = new Post(clientSays[2], clientSays[3], sender, null); //clientSays[4] //Parsea clienteSays4 al evento con ese id usando una busqueda hql
             } else if (clientSays[1].equalsIgnoreCase("Comment")){
                 u = new Comment(sender, null, clientSays[4]);
             } else if (clientSays[1].equalsIgnoreCase("Opinion")){

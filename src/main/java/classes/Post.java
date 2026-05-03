@@ -19,8 +19,10 @@ public class Post {
     @ManyToOne
     private Event idEvent;
 
-    public Post(String textContent, User idAuthor, Event idEvent) {
+    public Post(String textContent, String image, User idAuthor, Event idEvent) {
         this.textContent = textContent;
+        if (image.equalsIgnoreCase("null")) image = null;
+        this.image = image;
         this.idAuthor = idAuthor;
         this.idEvent = idEvent;
     }

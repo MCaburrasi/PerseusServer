@@ -5,9 +5,11 @@ public class ManejadorCliente implements Runnable {
     private Socket socket;
     private PrintWriter salida;
     private BufferedReader entrada;
+    private Protocol protocol;
 
-    public ManejadorCliente(Socket socket) {
+    public ManejadorCliente(Socket socket, Protocol protocol) {
         this.socket = socket;
+        this.protocol = protocol;
     }
 
     @Override
@@ -20,7 +22,7 @@ public class ManejadorCliente implements Runnable {
             while ((mensajeCliente = entrada.readLine()) != null) {
                 String respuestaServidor = ""; //Procesar entrada
                 System.out.println(mensajeCliente);
-                enviarMensajeDirecto(respuestaServidor);
+                protocol.processIn(mensajeCliente.split("|"), null);
             }
         } catch (IOException e) {
             System.err.println("Fallo en la conexión");
