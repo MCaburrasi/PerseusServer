@@ -1,13 +1,15 @@
 package classes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Comment {
-    @ManyToOne
-    @Id //Figure it out
+    @Id
+    @GenericGenerator(name = "native_generator", strategy = "native")
+    @GeneratedValue(generator = "native_generator")
+    private long id;
+    @ManyToOne //Figure it out
     private User idUser;
     @ManyToOne
     private Post idPost;

@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.List;
 
 public class ManejadorCliente implements Runnable {
     private Socket socket;
@@ -20,10 +21,16 @@ public class ManejadorCliente implements Runnable {
 
             String mensajeCliente;
             while ((mensajeCliente = entrada.readLine()) != null) {
-                String respuestaServidor = ""; //Procesar entrada
                 System.out.println(mensajeCliente);
-                protocol.processIn(mensajeCliente.split("|"), null);
+                String l = protocol.processIn(mensajeCliente.split("\\|"), null); //Procesar entrada
+                System.out.println(mensajeCliente);
+                if (l != null){
+                    System.out.println(l);
+                    enviarMensajeDirecto(l);
+                }
+
             }
+
         } catch (IOException e) {
             System.err.println("Fallo en la conexión");
         } finally {
@@ -40,7 +47,7 @@ public class ManejadorCliente implements Runnable {
     private void cerrarConexion() {
         try {
             if (socket != null) socket.close();
-            System.out.println("Socket de jugador cerrado");
+            System.out.println("Socket cerrado");
         } catch (IOException e) {
             e.printStackTrace();
         }

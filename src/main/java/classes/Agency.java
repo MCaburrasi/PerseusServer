@@ -1,9 +1,11 @@
 package classes;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Agency {
+    @Id
     private String name;
 
     private String country;
@@ -17,6 +19,10 @@ public class Agency {
         this.country = country;
         this.history = history;
         this.info = info;
+    }
+
+    public Agency() {
+
     }
 
     public String getName() {

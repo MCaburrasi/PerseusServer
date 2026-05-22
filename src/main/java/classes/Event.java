@@ -1,14 +1,15 @@
 package classes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class Event {
     @Id
+    @GenericGenerator(name = "native_generator", strategy = "native")
+    @GeneratedValue(generator = "native_generator")
     private long id;
     private String title;
     private String description;
@@ -16,8 +17,8 @@ public class Event {
     private LocalDateTime endTime;
     private String place;
     private String image;
-    @ManyToOne
-    private User idAuthor;
+    /*@ManyToOne
+    private User idAuthor;*/
 
     public Event(String title, String description, LocalDateTime startDate, LocalDateTime endTime, String place, String image, User idAuthor) {
         this.title = title;
@@ -26,7 +27,7 @@ public class Event {
         this.endTime = endTime;
         this.place = place;
         this.image = image;
-        this.idAuthor = idAuthor;
+        //this.idAuthor = idAuthor;
     }
 
     public Event() {}
@@ -59,7 +60,7 @@ public class Event {
         return image;
     }
 
-    public User getIdAuthor() {
+    /*public User getIdAuthor() {
         return idAuthor;
-    }
+    }*/
 }

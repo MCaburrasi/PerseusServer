@@ -3,17 +3,16 @@ create database PerseusDatabase;
 use PerseusDatabase;
 
 create table User(
-    id int primary key,
+    id int primary key auto_increment,
     name varchar(50),
     password varchar(50),
-    mail varchar(50),
     pfp varchar(150),
     banner varchar(150),
     bio text
 );
 
 create table Event(
-    id int primary key,
+    id int primary key auto_increment,
     title varchar(50),
     description text,
     startDate datetime,
@@ -26,7 +25,7 @@ create table Event(
 );
 
 create table Post(
-    id int primary key,
+    id int primary key auto_increment,
     textContent text,
     image varchar(150),
     idAuthor int,
@@ -44,7 +43,7 @@ create table Agency(
 );
 
 create table Article(
-    id int primary key,
+    id int primary key auto_increment,
     doc varchar(150),
     idAgency varchar(50),
 
@@ -60,24 +59,24 @@ create table Occurrence(
 );
 
 create table Comment(
+    id int primary key auto_increment,
     idUser int,
     idPost int,
     content text,
     likes int,
 
-    constraint primary key (idUser, idPost),
     constraint foreign key (idUser) references User(id),
     constraint foreign key (idPost) references Post(id)
 );
 
 create table Opinion(
+    id int primary key auto_increment,
     idUser int,
     idArticle int,
     content text,
     likes int,
     line int,
 
-    constraint primary key (idUser, idArticle),
     constraint foreign key (idUser) references User(id),
     constraint foreign key (idArticle) references Article(id)
 );

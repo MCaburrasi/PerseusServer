@@ -11,7 +11,7 @@
         <property name="hibernate.connection.driver_class"> com.mysql.jdbc.Driver </property> 
 -->      
 
-        <property name="hibernate.connection.url"> jdbc:mysql://localhost:3306/empresahibernateJPA?zeroDateTimeBehavior=convertToNull </property>
+        <property name="hibernate.connection.url"> jdbc:mysql://localhost:3306/perseusdatabase?zeroDateTimeBehavior=convertToNull </property>
         <property name="hibernate.connection.username"> root </property> 
         <property name="hibernate.connection.password"> root </property>
 
@@ -33,7 +33,15 @@
   -->     
 
         <!-- Clases con anotaciones -->
-        <mapping class=""/>
+        <mapping class="classes.Agency"/>
+        <mapping class="classes.Article"/>
+        <mapping class="classes.User"/>
+        <mapping class="classes.Comment"/>
+        <mapping class="classes.Event"/>
+        <mapping class="classes.Favorite"/>
+        <mapping class="classes.Occurrence"/>
+        <mapping class="classes.Opinion"/>
+        <mapping class="classes.Post"/>
         
     </session-factory>
 </hibernate-configuration>

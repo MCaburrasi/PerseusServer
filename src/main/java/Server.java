@@ -1,3 +1,6 @@
+import classes.HibernateUtil;
+import org.hibernate.Session;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -6,11 +9,12 @@ public class Server {
     public static void main(String[] args) {
         int port = 3621;
 
-        Protocol protocol = new Protocol();
+
         try (ServerSocket socketServidor = new ServerSocket(port)) {
             
             while (true) {
                 Socket socketCliente = socketServidor.accept();
+                Protocol protocol = new Protocol(HibernateUtil.getSessionFactory().openSession());
 
                 ManejadorCliente manejador = new ManejadorCliente(socketCliente, protocol);
                 Thread hilo = new Thread(manejador);

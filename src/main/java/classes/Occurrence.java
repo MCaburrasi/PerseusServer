@@ -1,12 +1,17 @@
 package classes;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 
 import java.time.LocalDateTime;
 
 @Entity
+@IdClass(OccurrenceId.class)
 public class Occurrence {
+    @Id
     private String name;
+    @Id
     private LocalDateTime date;
     private String description;
 
@@ -14,6 +19,10 @@ public class Occurrence {
         this.name = name;
         this.date = date;
         this.description = description;
+    }
+
+    public Occurrence() {
+
     }
 
     public String getName() {
@@ -28,3 +37,4 @@ public class Occurrence {
         return description;
     }
 }
+

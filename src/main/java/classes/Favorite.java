@@ -1,24 +1,34 @@
 package classes;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.ManyToOne;
 
+import java.io.Serializable;
+
 @Entity
-public class Favorite {
+@IdClass(FavoriteId.class)
+public class Favorite implements Serializable {
+    @Id
     @ManyToOne
-    private int idUser;
-    @ManyToOne
+    private User idUser;
+    @Id
     private String occurrenceName;
-    @ManyToOne
+    @Id
     private String occurrenceDate;
 
-    public Favorite(int idUser, String occurrenceName, String occurrenceDate) {
+    public Favorite(User idUser, String occurrenceName, String occurrenceDate) {
         this.idUser = idUser;
         this.occurrenceName = occurrenceName;
         this.occurrenceDate = occurrenceDate;
     }
 
-    public int getIdUser() {
+    public Favorite() {
+
+    }
+
+    public User getIdUser() {
         return idUser;
     }
 
@@ -30,3 +40,4 @@ public class Favorite {
         return occurrenceDate;
     }
 }
+

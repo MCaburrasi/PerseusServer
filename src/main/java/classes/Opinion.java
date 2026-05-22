@@ -1,13 +1,19 @@
 package classes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Opinion {
 
     @Id
+    @GenericGenerator(name = "native_generator", strategy = "native")
+    @GeneratedValue(generator = "native_generator")
+    private long id;
+
+    @ManyToOne
     private User idUser;
+    @ManyToOne
     private Article idArticle;
     private String content;
     private int likes;
