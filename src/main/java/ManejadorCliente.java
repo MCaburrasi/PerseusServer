@@ -1,3 +1,5 @@
+import nasaapi.NasaWebConfig;
+
 import java.io.*;
 import java.net.*;
 import java.util.List;
@@ -7,6 +9,7 @@ public class ManejadorCliente implements Runnable {
     private PrintWriter salida;
     private BufferedReader entrada;
     private Protocol protocol;
+    private NasaWebConfig nwc;
 
     public ManejadorCliente(Socket socket, Protocol protocol) {
         this.socket = socket;

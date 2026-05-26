@@ -4,6 +4,7 @@ import classes.Opinion;
 import classes.Post;
 import classes.User;
 import jakarta.persistence.EntityManager;
+import nasaapi.NasaWebConfig;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -13,9 +14,11 @@ import java.util.List;
 
 public class Protocol {
     private Session session;
+    private NasaWebConfig nwc;
 
-    public Protocol(Session session){
+    public Protocol(Session session, NasaWebConfig nwc){
         this.session = session;
+        this.nwc = nwc;
     }
 
     public String processIn(String[] clientSaysSmall, User sender){
@@ -53,6 +56,8 @@ public class Protocol {
             }
             assert list != null;
             return list.toString();
+        } else if (clientSays[0].equalsIgnoreCase("nwc")) {
+            return nwc.getArticleOTD();
         }
 
         return null;
