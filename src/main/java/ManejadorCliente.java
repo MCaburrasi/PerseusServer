@@ -1,3 +1,4 @@
+import classes.User;
 import nasaapi.NasaWebConfig;
 
 import java.io.*;
@@ -11,9 +12,12 @@ public class ManejadorCliente implements Runnable {
     private Protocol protocol;
     private NasaWebConfig nwc;
 
+    private User sender;
+
     public ManejadorCliente(Socket socket, Protocol protocol) {
         this.socket = socket;
         this.protocol = protocol;
+        this.sender = null;
     }
 
     @Override
@@ -25,7 +29,7 @@ public class ManejadorCliente implements Runnable {
             String mensajeCliente;
             while ((mensajeCliente = entrada.readLine()) != null) {
                 System.out.println(mensajeCliente);
-                String l = protocol.processIn(mensajeCliente.split("\\|"), null); //Procesar entrada
+                String l = protocol.processIn(mensajeCliente.split("\\|"), sender, this); //Procesar entrada
                 System.out.println(mensajeCliente);
                 if (l != null){
                     System.out.println(l);
@@ -54,5 +58,9 @@ public class ManejadorCliente implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setUser(User u){
+        this.sender = u;
     }
 }

@@ -1,54 +1,82 @@
 package classes;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "post", schema = "perseusdatabase")
 public class Post {
     @Id
-    @GenericGenerator(name = "native_generator", strategy = "native")
-    @GeneratedValue(generator = "native_generator")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
+    @Lob
+    @Column(name = "textContent")
     private String textContent;
 
+    @Column(name = "image", length = 150)
     private String image;
 
-    /*@ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idAuthor")
     private User idAuthor;
 
-    @ManyToOne
-    private Event idEvent;*/
-
-    public Post(String textContent, String image, User idAuthor, Event idEvent) {
+    public Post(String textContent, String image, User idAuthor) {
         this.textContent = textContent;
         this.image = image;
-        //this.idAuthor = idAuthor;
-        //this.idEvent = idEvent;
+        this.idAuthor = idAuthor;
     }
 
     public Post() {
 
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTextContent() {
         return textContent;
     }
 
-    /*public User getIdAuthor() {
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public User getIdAuthor() {
         return idAuthor;
     }
 
-    public Event getIdEvent() {
-        return idEvent;
-    }*/
+    public void setIdAuthor(User idAuthor) {
+        this.idAuthor = idAuthor;
+    }
 
-    @Override
-    public String toString() {
-        return id + "|" + textContent + "|" + image;
+    public String toString(){
+        String auth = null;
+        if (idAuthor != null){
+            auth = idAuthor.getName();
+        }
+        return id + "|" + textContent + "|" + image + "|" + auth;
     }
 }

@@ -1,47 +1,80 @@
 package classes;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "comment", schema = "perseusdatabase")
 public class Comment {
     @Id
-    @GenericGenerator(name = "native_generator", strategy = "native")
-    @GeneratedValue(generator = "native_generator")
-    private long id;
-    @ManyToOne //Figure it out
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUser")
     private User idUser;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPost")
     private Post idPost;
 
+    @Lob
+    @Column(name = "content")
     private String content;
-
-    private int likes;
 
     public Comment(User idUser, Post idPost, String content) {
         this.idUser = idUser;
         this.idPost = idPost;
         this.content = content;
-        this.likes = 0;
     }
 
     public Comment() {
 
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public User getIdUser() {
         return idUser;
+    }
+
+    public void setIdUser(User idUser) {
+        this.idUser = idUser;
     }
 
     public Post getIdPost() {
         return idPost;
     }
 
+    public void setIdPost(Post idPost) {
+        this.idPost = idPost;
+    }
+
     public String getContent() {
         return content;
     }
 
-    public int getLikes() {
-        return likes;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return id + "|" + idUser.getName() + "|" + content;
     }
 }

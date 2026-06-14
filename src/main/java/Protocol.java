@@ -1,63 +1,26 @@
-import classes.Comment;
-import classes.Event;
-import classes.Opinion;
-import classes.Post;
 import classes.User;
-import jakarta.persistence.EntityManager;
 import nasaapi.NasaWebConfig;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Locale;
 
 public class Protocol {
-    private Session session;
+    private DatabaseManager dm;
     private NasaWebConfig nwc;
 
-    public Protocol(Session session, NasaWebConfig nwc){
-        this.session = session;
+    public Protocol(DatabaseManager dm, NasaWebConfig nwc){
+        this.dm = dm;
         this.nwc = nwc;
     }
 
-    public String processIn(String[] clientSaysSmall, User sender){
-
-        Object u = null;
+    public String processIn(String[] clientSaysSmall, User sender, ManejadorCliente m){
         String[] clientSays = Arrays.copyOf(clientSaysSmall, 10);
-        if (clientSays[0].equalsIgnoreCase("Add")){
-            Transaction transaction = session.beginTransaction();
-            if (clientSays[1].equalsIgnoreCase("User")) {
-                u = new User(clientSays[2], clientSays[3], clientSays[4]);
-            } else if (clientSays[1].equalsIgnoreCase("Event")) {
-                LocalDateTime startDate = LocalDateTime.parse(clientSays[4]);
-                LocalDateTime endDate = LocalDateTime.parse(clientSays[5]);
-
-                u = new Event(clientSays[2], clientSays[3], startDate, endDate, clientSays[6], clientSays[7], sender);
-            } else if (clientSays[1].equalsIgnoreCase("Post")){
-                u = new Post(clientSays[2], clientSays[3], sender, null); //clientSays[4] //Parsea clienteSays4 al evento con ese id usando una busqueda hql
-            } else if (clientSays[1].equalsIgnoreCase("Comment")){
-                u = new Comment(sender, null, clientSays[4]);
-            } else if (clientSays[1].equalsIgnoreCase("Opinion")){
-                u = new Opinion(sender, null, clientSays[4], Integer.parseInt(clientSays[5]));
-            }
-            session.persist(u);
-            transaction.commit();
-
-        } else if (clientSays[0].equalsIgnoreCase("Load")) {
-            List list = null;
-            EntityManager entityManager = session.getEntityManagerFactory().createEntityManager();
-            if (clientSays[1].equalsIgnoreCase("Post")){
-                list = entityManager.createQuery("from Post").getResultList();
-            } else if (clientSays[1].equalsIgnoreCase("Event")) {
-                list = entityManager.createQuery("from Event").getResultList();
-            } else if (clientSays[1].equalsIgnoreCase("Article")){
-                list = entityManager.createQuery("from Article").getResultList();
-            }
-            assert list != null;
-            return list.toString();
-        } else if (clientSays[0].equalsIgnoreCase("nwc")) {
-            return nwc.getArticleOTD();
+        switch (clientSays[0].toLowerCase()){
+            case "add" -> dm.add(clientSays, sender);
+            case "load" -> { return dm.load(clientSays, sender); }
+            case "nwc" -> {return nwc.getArticleOTD();}
+            case "login" -> m.setUser(dm.loadFullUser(clientSays[1]));
+            case "del" -> dm.remove(clientSays, sender);
+            case "edit" -> {return dm.edit(clientSays, sender);}
         }
 
         return null;

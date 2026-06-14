@@ -7,14 +7,17 @@ import java.net.Socket;
 
 public class Server {
     public static void main(String[] args) {
+        //TODO Sacar del main
         int port = 3621;
         NasaWebConfig nwc = new NasaWebConfig();
+        DatabaseManager dm = new DatabaseManager(HibernateUtil.getSessionFactory().openSession());
 
         try (ServerSocket socketServidor = new ServerSocket(port)) {
             
             while (true) {
                 Socket socketCliente = socketServidor.accept();
-                Protocol protocol = new Protocol(HibernateUtil.getSessionFactory().openSession(), nwc);
+
+                Protocol protocol = new Protocol(dm, nwc);
 
                 ManejadorCliente manejador = new ManejadorCliente(socketCliente, protocol);
                 Thread hilo = new Thread(manejador);

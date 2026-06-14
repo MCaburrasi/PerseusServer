@@ -12,8 +12,8 @@
 -->      
 
         <property name="hibernate.connection.url"> jdbc:mysql://localhost:3306/perseusdatabase?zeroDateTimeBehavior=convertToNull </property>
-        <property name="hibernate.connection.username"> root </property> 
-        <property name="hibernate.connection.password"> root </property>
+        <property name="hibernate.connection.username"> Caburrasi </property>
+        <property name="hibernate.connection.password"> u1d2t3c4 </property>
 
         <!-- Configuración de algunos parámetros de Hibernate-->
         <property name="hibernate.show_sql">true</property>
@@ -33,15 +33,12 @@
   -->     
 
         <!-- Clases con anotaciones -->
-        <mapping class="classes.Agency"/>
-        <mapping class="classes.Article"/>
         <mapping class="classes.User"/>
         <mapping class="classes.Comment"/>
         <mapping class="classes.Event"/>
-        <mapping class="classes.Favorite"/>
-        <mapping class="classes.Occurrence"/>
-        <mapping class="classes.Opinion"/>
         <mapping class="classes.Post"/>
+        <mapping class="classes.Eventattendee"/>
+        <mapping class="classes.Like"/>
         
     </session-factory>
 </hibernate-configuration>

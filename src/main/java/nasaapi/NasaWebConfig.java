@@ -30,13 +30,15 @@ public class NasaWebConfig {
                     informationstring.append(sc.nextLine());
                 }
                 sc.close();
-                Map<String,Object> result = new ObjectMapper().readValue(informationstring.toString(), HashMap.class);
+                Map<String, String> result = new ObjectMapper().readValue(informationstring.toString(), HashMap.class);
+                System.out.println(result);
                 result.remove("media_type");
                 result.remove("url");
                 result.remove("date");
                 result.remove("service_version");
+                System.out.println(result);
 
-                informationstring = new StringBuilder(result.toString());
+                informationstring = new StringBuilder("title=" + result.get("title") + "|explanation=" + result.get("explanation") + "|hdurl=" + result.get("hdurl"));
             }
         } catch (Exception e) {
             e.printStackTrace();
