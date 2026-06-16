@@ -1,19 +1,16 @@
-drop database PerseusDatabase;
-create database PerseusDatabase;
+drop database if exists perseusDatabase;
+create database if not exists perseusDatabase;
 
-use PerseusDatabase;
+use perseusDatabase;
 
 create table User(
     name varchar(50) primary key,
-    password varchar(200),
-    pfp varchar(150),
-    banner varchar(150),
-    bio text
+    password varchar(200)
 );
 
 create table Event(
     id int primary key auto_increment,
-    title varchar(50),
+    title varchar(100),
     description text,
     startDate datetime,
     endTime datetime,
@@ -29,10 +26,8 @@ create table Post(
     textContent text,
     image varchar(150),
     idAuthor varchar(50),
-    idEvent int,
 
-    constraint foreign key (idAuthor) references User(name),
-    constraint foreign key (idEvent) references Event(id)
+    constraint foreign key (idAuthor) references User(name)
 );
 
 create table Comment(
@@ -40,25 +35,7 @@ create table Comment(
     idUser varchar(50),
     idPost int,
     content text,
-    likes int,
 
     constraint foreign key (idUser) references User(name),
     constraint foreign key (idPost) references Post(id)
-);
-
-create table eventAttendees(
-    eventAttId int primary key auto_increment,
-    eventId int,
-    userId varchar(50),
-
-    constraint foreign key (eventId) references Event(id),
-    constraint foreign key (userId) references User(name)
-);
-
-create table likes(
-    likeId int primary key auto_increment,
-    postId int,
-    userId varchar(50),
-    constraint foreign key (postId) references Post(id),
-    constraint foreign key (userId) references User(name)
 );

@@ -49,30 +49,6 @@ public class Comment {
         this.id = id;
     }
 
-    public User getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
-    }
-
-    public Post getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(Post idPost) {
-        this.idPost = idPost;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     @Override
     public String toString() {
         return id + "|" + idUser.getName() + "|" + content;

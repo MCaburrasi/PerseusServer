@@ -1,7 +1,5 @@
 import classes.Comment;
 import classes.Event;
-import classes.Eventattendee;
-import classes.Like;
 import classes.Post;
 import classes.User;
 import com.google.common.hash.Hashing;
@@ -10,14 +8,11 @@ import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.NoSuchElementException;
-import java.util.concurrent.ExecutionException;
 
 @Transactional
 public class DatabaseManager {
@@ -73,7 +68,7 @@ public class DatabaseManager {
         return post.getId().toString();
     }
 
-    public String addLike(User u, String pId){
+    /*public String addLike(User u, String pId){
         Transaction transaction = session.beginTransaction();
 
         Post post;
@@ -88,9 +83,9 @@ public class DatabaseManager {
 
             return l.getId().toString();
         }
-    }
+    }*/
 
-    public String addEventAttendee(User u, String eId){
+    /*public String addEventAttendee(User u, String eId){
         Transaction transaction = session.beginTransaction();
 
         Event ev;
@@ -105,7 +100,7 @@ public class DatabaseManager {
 
             return ea.getId().toString();
         }
-    }
+    }*/
 
     public String addComment(String[] clientSays, User sender){
         Transaction transaction = session.beginTransaction();
@@ -162,7 +157,7 @@ public class DatabaseManager {
         return s;
     }
 
-    public String getLike(User sender){
+    /*public String getLike(User sender){
         EntityManager entityManager = session.getEntityManagerFactory().createEntityManager();
 
         Query q = entityManager.createQuery("select post from Like where user=:n");
@@ -170,18 +165,18 @@ public class DatabaseManager {
         System.out.println(q.getResultList().toString());
 
         return q.getResultList().toString();
-    }
+    }*/
 
-    public String getEventAttendees(User sender){
+    /*public String getEventAttendees(User sender){
         EntityManager entityManager = session.getEntityManagerFactory().createEntityManager();
 
         Query q = entityManager.createQuery("select event from Eventattendee where user=:n");
         q.setParameter("n", sender);
 
         return q.getResultList().toString();
-    }
+    }*/
 
-    public void removeLike(String[] clientSays, User sender){
+    /*public void removeLike(String[] clientSays, User sender){
         Transaction transaction = session.beginTransaction();
         EntityManager entityManager = session.getEntityManagerFactory().createEntityManager();
 
@@ -204,7 +199,7 @@ public class DatabaseManager {
         Like l = (Like) q.getResultList().getFirst();
         session.remove(l);
         transaction.commit();
-    }
+    }*/
 
     public String getComments(String[] clientSays){
         EntityManager entityManager = session.getEntityManagerFactory().createEntityManager();
@@ -222,8 +217,8 @@ public class DatabaseManager {
             case "event" -> s = addEvent(clientSays, sender);
             case "post" -> s = addPost(clientSays, sender);
             case "comment" -> s = addComment(clientSays, sender);
-            case "join" -> s = addEventAttendee(sender, clientSays[2]);
-            case "like" -> s = addLike(sender, clientSays[2]);
+            //case "join" -> s = addEventAttendee(sender, clientSays[2]);
+            //case "like" -> s = addLike(sender, clientSays[2]);
         }
 
         return s;
@@ -235,10 +230,10 @@ public class DatabaseManager {
             case "post" -> s = getPosts(clientSays).toString();
             case "event" -> s = getEvents(clientSays).toString();
             case "user" -> s = getUser(clientSays);
-            case "like" -> s = getLike(sender);
-            case "evat" -> s = getEventAttendees(sender);
+            //case "like" -> s = getLike(sender);
+            //case "evat" -> s = getEventAttendees(sender);
             case "comment" -> s = getComments(clientSays);
-            case "bio" -> s = getBio(sender);
+            //case "bio" -> s = getBio(sender);
         }
 
         System.out.println(s);
@@ -248,21 +243,21 @@ public class DatabaseManager {
     public String edit(String[] clientSays, User sender){
         String s = "";
         switch (clientSays[1].toLowerCase()){
-            case "bio" -> s = editBio(clientSays, sender);
-            case "postimg" -> s = editPostImg(clientSays);
+            //case "bio" -> s = editBio(clientSays, sender);
+            //case "postimg" -> s = editPostImg(clientSays);
         }
 
         return s;
     }
 
-    public String editBio(String[] clientSays, User sender){
+    /*public String editBio(String[] clientSays, User sender){
         Transaction transaction = session.beginTransaction();
         sender.setBio(clientSays[2]);
         transaction.commit();
         return clientSays[2];
-    }
+    }*/
 
-    public String editPostImg(String[] clientSays){
+    /*public String editPostImg(String[] clientSays){
         EntityManager entityManager = session.getEntityManagerFactory().createEntityManager();
 
         Query q = entityManager.createQuery("from Post where id=:n");
@@ -272,17 +267,17 @@ public class DatabaseManager {
         p.setImage(clientSays[3]);
 
         return clientSays[3];
-    }
+    }*/
 
-    public String getBio(User sender){
+    /*public String getBio(User sender){
         return sender.getBio();
-    }
+    }*/
 
-    public void remove(String[] clientSays, User sender){
+    /*public void remove(String[] clientSays, User sender){
         switch (clientSays[1].toLowerCase()){
             case "like" -> removeLike(clientSays, sender);
         }
-    }
+    }*/
 
     public User loadFullUser(String username){
         EntityManager entityManager = session.getEntityManagerFactory().createEntityManager();

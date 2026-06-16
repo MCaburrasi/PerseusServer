@@ -19,7 +19,7 @@ public class Protocol {
             case "load" -> { return dm.load(clientSays, sender); }
             case "nwc" -> {return nwc.getArticleOTD();}
             case "login" -> m.setUser(dm.loadFullUser(clientSays[1]));
-            case "del" -> dm.remove(clientSays, sender);
+            //case "del" -> dm.remove(clientSays, sender);
             case "edit" -> {return dm.edit(clientSays, sender);}
         }
 

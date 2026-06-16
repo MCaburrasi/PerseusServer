@@ -37,8 +37,6 @@
         <mapping class="classes.Comment"/>
         <mapping class="classes.Event"/>
         <mapping class="classes.Post"/>
-        <mapping class="classes.Eventattendee"/>
-        <mapping class="classes.Like"/>
         
     </session-factory>
 </hibernate-configuration>

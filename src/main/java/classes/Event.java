@@ -66,62 +66,6 @@ public class Event {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public User getIdAuthor() {
-        return idAuthor;
-    }
-
-    public void setIdAuthor(User idAuthor) {
-        this.idAuthor = idAuthor;
-    }
-
     @Override
     public String toString() {
         return id + "|" + title + "|" + description + "|" + startDate + "|" + endTime + "|" + place + "|" + image + "|" + idAuthor.getName();

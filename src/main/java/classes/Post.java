@@ -48,30 +48,6 @@ public class Post {
         this.id = id;
     }
 
-    public String getTextContent() {
-        return textContent;
-    }
-
-    public void setTextContent(String textContent) {
-        this.textContent = textContent;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public User getIdAuthor() {
-        return idAuthor;
-    }
-
-    public void setIdAuthor(User idAuthor) {
-        this.idAuthor = idAuthor;
-    }
-
     public String toString(){
         String auth = null;
         if (idAuthor != null){

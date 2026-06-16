@@ -20,12 +20,6 @@ public class User {
     @Column(name = "password", length = 50)
     private String password;
 
-    @Column(name = "pfp", length = 150)
-    private String pfp;
-
-    @Column(name = "banner", length = 150)
-    private String banner;
-
     @Lob
     @Column(name = "bio")
     private String bio;
@@ -48,30 +42,6 @@ public class User {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPfp() {
-        return pfp;
-    }
-
-    public void setPfp(String pfp) {
-        this.pfp = pfp;
-    }
-
-    public String getBanner() {
-        return banner;
-    }
-
-    public void setBanner(String banner) {
-        this.banner = banner;
-    }
-
     public String getBio() {
         return bio;
     }
@@ -82,6 +52,6 @@ public class User {
 
     @Override
     public String toString() {
-        return name + "|" + password + "|" + pfp + "|" + banner + "|" + bio;
+        return name + "|" + password + "|" + bio;
     }
 }
